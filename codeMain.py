@@ -66,8 +66,12 @@ class PhonebookApp:
         master.protocol("WM_DELETE_WINDOW", self.save_and_quit)
 
     def add_contact(self):
-        # добавление нового контакта
-        pass
+        new_contact = self.add_contact_dialog()
+        if new_contact and any(new_contact.values()):
+            contact_id = str(uuid.uuid4())
+            self.contacts[contact_id] = new_contact
+            self.save_contacts()
+            self.load_contacts()
 
     def delete_contact(self):
         # удаление выбранного контакта
