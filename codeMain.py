@@ -94,9 +94,27 @@ class PhonebookApp:
                 self.listbox.insert(tk.END, f"{contact.get(header_mapping.get('name', {}).get('en'), '')} {contact.get(header_mapping.get('surname', {}).get('en'), '')}")
 
     def load_contacts(self):
-        # Загрузка контактов из файла
-        pass
+        try:
+            with open("contacts.json", "r", encoding="utf-8") as file:
+                contacts_list = json.load(file)
+                self.contacts = {}
 
+                for entry in contacts_list:
+                    contact_id = entry["uid"]
+                    del entry["uid"]
+                    name = entry.get("name", "")
+                    surname = entry.get("surname", "")
+                    full_name = f"{name} {surname}"
+
+                    self.contacts[contact_id] = entry
+                    self.listbox.insert(tk.END, full_name)
+                    self.contact_id_map[full_name] = contact_id
+
+        except FileNotFoundError:
+            self.contacts = {}
+        except Exception as e:
+            print(f"Ошибка при загрузке контактов из файла: {e}")
+            
     def view_contact(self):
         # просмотр контакта с возможностью редактирования
         pass
