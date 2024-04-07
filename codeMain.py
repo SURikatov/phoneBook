@@ -115,9 +115,38 @@ class PhonebookApp:
         except Exception as e:
             print(f"Ошибка при загрузке контактов из файла: {e}")
             
-    def view_contact(self):
-        # просмотр контакта с возможностью редактирования
-        pass
+    def view_contact(self, event=None):
+        try:
+            index = self.listbox.curselection()[0]
+            self.selected_contact_name = self.listbox.get(index)
+        except IndexError:
+            pass
+
+        if not hasattr(self, 'selected_contact_name'):
+            messagebox.showerror("Ошибка", "Выберите контакт для просмотра.")
+            return
+
+        contact_id = self.contact_id_map.get(self.selected_contact_name)
+        if contact_id:
+            contact = self.contacts[contact_id]
+
+            view_window = tk.Toplevel(self.master)
+            view_window.title("Просмотр контакта")
+
+            self.edit_entries = []
+
+            for i, key in enumerate(contact.keys()):
+                tk.Label(view_window, text=f"{header_mapping[key]['ru']}:").grid(row=i, column=0, padx=5, pady=5)
+                entry = tk.Entry(view_window)
+                entry.insert(0, contact[key])
+                entry.grid(row=i, column=1, padx=5, pady=5)
+                self.edit_entries.append(entry)
+
+            save_button = tk.Button(view_window, text="Сохранить", command=lambda: self.save_contact_changes(view_window, contact))
+            save_button.grid(row=len(contact), column=0, columnspan=2, pady=10)
+
+            close_button = tk.Button(view_window, text="Закрыть", command=view_window.destroy)
+            close_button.grid(row=len(contact) + 1, column=0, columnspan=2)
 
     def save_contacts(self):
         contacts_list = []
