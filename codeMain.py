@@ -78,8 +78,13 @@ class PhonebookApp:
         pass
 
     def search_contacts(self, event=None):
-        # поиск контактов
-        pass
+        query = self.search_entry.get().lower()
+        self.listbox.delete(0, tk.END)
+        for contact_id, contact in self.contacts.items():
+            name = contact.get(header_mapping.get("name", {}).get("en"), "").lower()
+            surname = contact.get(header_mapping.get("surname", {}).get("en"), "").lower()
+            if query in name or query in surname:
+                self.listbox.insert(tk.END, f"{contact.get(header_mapping.get('name', {}).get('en'), '')} {contact.get(header_mapping.get('surname', {}).get('en'), '')}")
 
     def load_contacts(self):
         # Загрузка контактов из файла
