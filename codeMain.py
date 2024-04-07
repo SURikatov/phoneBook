@@ -196,8 +196,8 @@ class PhonebookApp:
                 messagebox.showerror("Ошибка", f"Ошибка при экспорте контактов: {e}")
 
     def save_and_quit(self):
-        # Сохранение и выход из программы
-        pass
+        self.save_contacts()
+        self.master.destroy()
 
 root = tk.Tk()
 app = PhonebookApp(root)
