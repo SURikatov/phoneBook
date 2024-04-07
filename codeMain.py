@@ -22,7 +22,7 @@ class PhonebookApp:
         self.master = master
         master.title("Телефонный справочник")
 
-        # Загрузка изображения и установка его на метку
+        # Загрузка изображения
         self.phone_book_image = Image.open("icon.png")
         self.phone_book_image = self.phone_book_image.resize((50, 50), Image.BILINEAR) 
         self.phone_book_image = ImageTk.PhotoImage(self.phone_book_image)
@@ -42,10 +42,25 @@ class PhonebookApp:
         self.listbox.grid(row=2, column=0, columnspan=2, rowspan=6, sticky="nsew")
         self.listbox.bind('<Double-Button-1>', self.view_contact)
 
+        # Кнопки управления контактами
+        self.delete_button = tk.Button(master, text="Удалить", command=self.delete_contact)
+        self.delete_button.grid(row=9, column=0, sticky="we", padx=5)
+
+        self.add_button = tk.Button(master, text="Добавить", command=self.add_contact)
+        self.add_button.grid(row=9, column=1, sticky="we", padx=5)
+
         # Загрузка контактов
         self.load_contacts()
 
         master.protocol("WM_DELETE_WINDOW", self.save_and_quit)
+
+    def add_contact(self):
+        # Реализация добавления нового контакта
+        pass
+
+    def delete_contact(self):
+        # удаление контакта
+        pass
 
     def search_contacts(self, event=None):
         # поиск контактов
