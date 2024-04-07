@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import json
+import uuid
 from PIL import Image, ImageTk
 
 # Маппинг заголовков для перевода интерфейса
@@ -22,7 +23,6 @@ class PhonebookApp:
         self.master = master
         master.title("Телефонный справочник")
 
-        # Загрузка изображения
         self.phone_book_image = Image.open("icon.png")
         self.phone_book_image = self.phone_book_image.resize((50, 50), Image.BILINEAR) 
         self.phone_book_image = ImageTk.PhotoImage(self.phone_book_image)
@@ -59,7 +59,7 @@ class PhonebookApp:
         pass
 
     def delete_contact(self):
-        # удаление контакта
+        # Реализация удаления выбранного контакта
         pass
 
     def search_contacts(self, event=None):
@@ -68,6 +68,10 @@ class PhonebookApp:
 
     def load_contacts(self):
         # Загрузка контактов из файла
+        pass
+
+    def view_contact(self):
+        # просмотр контакта с возможностью редактирования
         pass
 
     def save_contacts(self):
