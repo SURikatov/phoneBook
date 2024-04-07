@@ -23,6 +23,7 @@ class PhonebookApp:
         self.master = master
         master.title("Телефонный справочник")
 
+        
         self.phone_book_image = Image.open("icon.png")
         self.phone_book_image = self.phone_book_image.resize((50, 50), Image.BILINEAR) 
         self.phone_book_image = ImageTk.PhotoImage(self.phone_book_image)
@@ -49,17 +50,23 @@ class PhonebookApp:
         self.add_button = tk.Button(master, text="Добавить", command=self.add_contact)
         self.add_button.grid(row=9, column=1, sticky="we", padx=5)
 
+        self.import_button = tk.Button(master, text="Импорт", command=self.import_contacts)
+        self.import_button.grid(row=10, column=0, sticky="we", padx=5)
+
+        self.export_button = tk.Button(master, text="Экспорт", command=self.export_contacts)
+        self.export_button.grid(row=10, column=1, sticky="we", padx=5)
+
         # Загрузка контактов
         self.load_contacts()
 
         master.protocol("WM_DELETE_WINDOW", self.save_and_quit)
 
     def add_contact(self):
-        # Реализация добавления нового контакта
+        # добавление нового контакта
         pass
 
     def delete_contact(self):
-        # Реализация удаления выбранного контакта
+        #удаление выбранного контакта
         pass
 
     def search_contacts(self, event=None):
@@ -76,6 +83,14 @@ class PhonebookApp:
 
     def save_contacts(self):
         # Сохранение контактов в файл
+        pass
+
+    def import_contacts(self):
+        # импорт контактов из файла
+        pass
+
+    def export_contacts(self):
+        # экспорт контактов в файл
         pass
 
     def save_and_quit(self):
