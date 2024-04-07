@@ -23,7 +23,7 @@ class PhonebookApp:
         self.master = master
         master.title("Телефонный справочник")
 
-        
+        # Загрузка изображения и установка его на метку
         self.phone_book_image = Image.open("icon.png")
         self.phone_book_image = self.phone_book_image.resize((50, 50), Image.BILINEAR) 
         self.phone_book_image = ImageTk.PhotoImage(self.phone_book_image)
@@ -56,6 +56,10 @@ class PhonebookApp:
         self.export_button = tk.Button(master, text="Экспорт", command=self.export_contacts)
         self.export_button.grid(row=10, column=1, sticky="we", padx=5)
 
+        # Нижняя надпись в главном окне
+        self.footer_label = tk.Label(master, text="© Created by Alexander Kadochnikov")
+        self.footer_label.grid(row=11, column=0, columnspan=2, sticky="s")  
+
         # Загрузка контактов
         self.load_contacts()
 
@@ -66,7 +70,7 @@ class PhonebookApp:
         pass
 
     def delete_contact(self):
-        #удаление выбранного контакта
+        # удаление выбранного контакта
         pass
 
     def search_contacts(self, event=None):
