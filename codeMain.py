@@ -32,6 +32,7 @@ class PhonebookApp:
 
         self.search_entry = tk.Entry(master)
         self.search_entry.grid(row=1, column=1, sticky="we", padx=5)
+        self.search_entry.bind("<KeyRelease>", self.search_contacts)
 
         self.listbox = tk.Listbox(master, width=50)
         self.listbox.grid(row=2, column=0, columnspan=2, rowspan=6, sticky="nsew")
@@ -76,11 +77,18 @@ class PhonebookApp:
         query = self.search_entry.get().lower()
         self.listbox.delete(0, tk.END)
 
+        matched_contacts = []
+
         for contact_id, contact in self.contacts.items():
             name = contact.get(header_mapping.get("name", {}).get("en"), "").lower()
             surname = contact.get(header_mapping.get("surname", {}).get("en"), "").lower()
             if query in name or query in surname:
-                self.listbox.insert(tk.END, f"{contact.get(header_mapping.get('name', {}).get('en'), '')} {contact.get(header_mapping.get('surname', {}).get('en'), '')}")
+                matched_contacts.append((name, surname, contact))
+
+        matched_contacts.sort(key=lambda x: (x[0], x[1]))
+
+        for _, _, contact in matched_contacts:
+            self.listbox.insert(tk.END, f"{contact.get(header_mapping.get('name', {}).get('en'), '')} {contact.get(header_mapping.get('surname', {}).get('en'), '')}")
 
     def delete_contact(self):
         selected_index = self.listbox.curselection()
