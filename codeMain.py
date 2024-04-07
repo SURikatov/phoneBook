@@ -74,8 +74,15 @@ class PhonebookApp:
             self.load_contacts()
 
     def delete_contact(self):
-        # удаление выбранного контакта
-        pass
+        selected_index = self.listbox.curselection()
+        if not selected_index:
+            messagebox.showwarning("Ошибка", "Выберите контакт для удаления.")
+            return
+
+        if messagebox.askokcancel("Подтверждение", "Вы уверены, что хотите удалить выбранный контакт?"):
+            del self.contacts[list(self.contacts.keys())[selected_index[0]]]
+            self.save_contacts()
+            self.load_contacts()
 
     def search_contacts(self, event=None):
         query = self.search_entry.get().lower()
