@@ -120,8 +120,15 @@ class PhonebookApp:
         pass
 
     def save_contacts(self):
-        # Сохранение контактов в файл
-        pass
+        contacts_list = []
+        for contact_id, contact in self.contacts.items():
+            contact_entry = {"uid": contact_id}
+            for key, value in contact.items():
+                contact_entry[key] = value
+            contacts_list.append(contact_entry)
+
+        with open("contacts.json", "w", encoding="utf-8") as file:
+            json.dump(contacts_list, file, ensure_ascii=False, indent=4)
 
     def import_contacts(self):
         file_path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
